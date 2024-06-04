@@ -15,7 +15,7 @@ from typing import Callable, Sequence
 
 import torch.utils.data
 from lhotse import CutSet
-from lhotse.cut import MixedCut, MonoCut
+from lhotse.cut import MixedCut, MonoCut, MultiCut
 from lhotse.dataset import AudioSamples
 from lhotse.dataset.collation import collate_vectors
 
@@ -141,6 +141,8 @@ def canary(
     for cut in cuts:
         if isinstance(cut, MixedCut):
             cut = cut._first_non_padding_cut
+        elif isinstance(cut, MultiCut):
+            cut = cut.to_mono(mono_downmix=True)
         if not isinstance(cut, MonoCut):
             raise TypeError(
                 f"Expected input audio to have a single channel (required MonoCut/MixedCut, but we received: {cut=})"
