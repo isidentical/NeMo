@@ -237,6 +237,7 @@ setuptools.setup(
     exclude=['tools', 'tests', 'nemo.deploy', 'nemo.export'],
     package_data={'': ['*.tsv', '*.txt', '*.far', '*.fst', '*.cpp', 'Makefile']},
     zip_safe=False,
+    setup_requires=["Cython"],
     # PyPI package information.
     keywords=__keywords__,
     # Custom commands.
